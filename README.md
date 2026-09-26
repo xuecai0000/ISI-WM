@@ -1,11 +1,6 @@
 # ISI-WM
 
-Training and evaluation code for ISI-WM, a pixel-based world-model agent
-trained with two training-time interventional objectives (background
-invariance and outcome-grounded action sensitivity) on top of TD-MPC2.
-
-Reference pseudocode for both objectives is provided in the paper (Algorithm 1).
-The complete training implementation will be released upon acceptance.
+Code for ISI-WM.
 
 ## Setup
 
@@ -19,11 +14,10 @@ pip install torch dm-control==1.0.16 mujoco==3.1.2 imageio imageio-ffmpeg
 ## Layout
 
 ```
-configs/          training configuration (all tasks share one setting;
-                  fully specifies the interventional objective constants)
-tools/            evaluation script (reproduces all reported numbers)
+configs/          configuration files
+tools/            evaluation script
 envs/wrappers/    video-background compositor
-data_protocol/    background data split, compositor spec, pairing contract
+data_protocol/    background data split and pairing notes
 ```
 
 ## Evaluation
@@ -39,12 +33,9 @@ python -m tools.evaluate_cutie_multitask_checkpoint \
     --episodes 20 --output out.json
 ```
 
-Conditions: `--condition clean` (no video), `--condition hard
---background-split train` (seen), `--condition hard --background-split test`
-(unseen).
+Conditions: `--condition clean`, `--condition hard --background-split train` (seen),
+`--condition hard --background-split test` (unseen).
 
 ## Data
 
-See `data_protocol/` for the 100-video pool split (train 0-79 /
-val 80-84 / test 90-99), blue-key compositor specification, and the
-intervention pairing contract.
+See `data_protocol/` for the video pool split and compositor specification.
