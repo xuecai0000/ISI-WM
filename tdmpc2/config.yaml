@@ -28,15 +28,15 @@ flat_anchor: false
 # exposes only the compact Cutie state to the controller and replay buffer.
 # `object_graph`, `oc`, and `residual` retain older paths.
 flat_anchor_mode: object_graph
-flat_anchor_impl_path: <BASELINE_PATH>/r2dreamer-main/anchor_state.py
+flat_anchor_impl_path: <PATH>
 flat_anchor_device: cuda:0
 # Required when flat_anchor=true. Keep empty here to prevent accidental use of
 # a diagnostic/simulator-bootstrapped support pack.
 flat_anchor_support_path: null
 flat_anchor_allow_diagnostic_support: false
 flat_anchor_dino_model: dinov2_vits14_reg
-flat_anchor_dino_repo: <DATA_PATH>/r2_hrssm_third_party/dinov2
-flat_anchor_dino_checkpoint: <DATA_PATH>/r2_hrssm_third_party/checkpoints/dinov2_vits14_reg4_pretrain.pth
+flat_anchor_dino_repo: <PATH>
+flat_anchor_dino_checkpoint: <PATH>
 flat_anchor_dino_input_size: 448
 flat_anchor_color_window: 5
 flat_anchor_color_score_weight: 0.35

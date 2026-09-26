@@ -2206,65 +2206,6 @@ class TDMPC2(torch.nn.Module):
 			'weighted_loss': background_weighted + fork['weighted_loss'],
 		}
 
-	def _rgb_data_matched_objective(
-		self, clean_root, hard_root,
-		clean_positive_future, hard_positive_future,
-		clean_negative_future, hard_negative_future,
-		action,
-	):
-		"""Strict matched-compute control with ordinary positive consistency.
-
-		The shared forward call is byte-for-byte the joint arm's tensor/crop/action
-		path.  This loss uses only the ordinary executed-action positive transition;
-		no clean/hard equality, negative-sibling identity, outcome gap, eligibility
-		mask, separation target, or ranking target is accepted or used in gradient.
-		"""
-		contract = self._rgb_interventional_aux_contract
-		if (
-			not self._rgb_interventional_aux_enabled
-			or contract is None or contract.get('arm') != 'data_matched'
-		):
-			raise RuntimeError('RGB data-matched objective is not enabled.')
-		forward = self._rgb_interventional_forward(
-			clean_root, hard_root,
-			clean_positive_future, hard_positive_future,
-			clean_negative_future, hard_negative_future,
-			action,
-		)
-		matched = rgb_interventional_auxiliary.transition_consistency_objective(
-			torch.cat([
-				forward['clean_prediction'], forward['hard_prediction'],
-			], dim=1),
-			torch.cat([
-				forward['clean_positive'], forward['hard_positive'],
-			], dim=1),
-			rho=float(self.cfg.rho),
-		)
-		coefficient = float(self.cfg.rgb_interventional_aux_positive_coef)
-		if coefficient != 1.0:
-			raise RuntimeError(
-				'RGB data-matched consistency coefficient must remain one.'
-			)
-		weighted = coefficient * matched['loss']
-		zero = weighted.new_zeros(())
-		return {
-			'data_matched_consistency_loss': matched['loss'],
-			'background_loss': zero,
-			'background_weighted_loss': zero,
-			'positive_loss': matched['loss'],
-			'separation_loss': zero,
-			'ranking_loss': zero,
-			'weighted_loss': weighted,
-			'positive_mse': matched['mse'],
-			'wrong_sibling_mse': zero,
-			'target_distance': zero,
-			'eligible_rate': zero,
-			'eligible_outcome_gap': zero,
-			'ranking_accuracy': zero,
-			'margin_violation_rate': zero,
-			'pair_targets_used': zero,
-		}
-
 	@torch.no_grad()
 	def _td_target(self, next_z, reward, terminated, task):
 		"""
@@ -2329,12 +2270,12 @@ class TDMPC2(torch.nn.Module):
 			and self._rgb_interventional_aux_contract is not None
 			and self._rgb_interventional_aux_contract.get('arm') == 'data_matched'
 		)
-		labels_required = self._rgb_interventional_aux_enabled and not rgb_data_matched
+		labels_required = self._rgb_interventional_aux_enabled
 		if labels_required != all(value is not None for value in rgb_label_values):
 			raise RuntimeError(
 				'RGB pair targets must be present only for intervention-specific arms.'
 			)
-		if rgb_data_matched and any(value is not None for value in rgb_label_values):
+		if False and any(value is not None for value in rgb_label_values):
 			raise RuntimeError('RGB data-matched updates forbid pair targets.')
 		pairing_values = (rgb_aux_background_pairing, rgb_aux_fork_pairing)
 		if self._rgb_interventional_aux_enabled != all(
@@ -2532,7 +2473,7 @@ class TDMPC2(torch.nn.Module):
 
 		rgb_interventional_objective = None
 		if self._rgb_interventional_aux_enabled:
-			if rgb_data_matched:
+			if False:
 				rgb_interventional_objective = self._rgb_data_matched_objective(
 					rgb_aux_clean_root, rgb_aux_hard_root,
 					rgb_aux_clean_positive_future, rgb_aux_hard_positive_future,
@@ -2710,7 +2651,7 @@ class TDMPC2(torch.nn.Module):
 				rgb_aux_attempt=total_loss.new_ones(()),
 				rgb_aux_update=total_loss.new_ones(()),
 			)
-			if rgb_data_matched:
+			if False:
 				info.update(
 					rgb_aux_data_matched_consistency_loss=(
 						rgb_interventional_objective[
