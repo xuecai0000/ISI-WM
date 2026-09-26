@@ -560,7 +560,7 @@ def evaluate(args):
 	import torch
 	from common.seed import set_seed
 	from envs import make_env
-	from isi_wm.tdmpc2 import TDMPC2
+	from isi_wm import TDMPC2
 	from common import object_state_supervision
 
 	_validate_args(args)

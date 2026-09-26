@@ -16,11 +16,11 @@ Python 3.11, CUDA-enabled GPU.
 isi_wm/                    training and evaluation code
   common/                    interventional objective definitions
   trainer/                   training loop
-  envs/                      environment wrappers (video background compositor)
+  envs/                      environment wrappers and background compositor
   tools/                     evaluation and data construction scripts
-  tdmpc2.py                  agent (encoder, latent dynamics, MPC planner)
+  isi_wm.py                  agent (encoder, latent dynamics, MPC planner)
   config.yaml                base configuration
-configs/                    intervention hyperparameters (all tasks shared)
+configs/                    intervention hyperparameters
 tools/                      standalone evaluation protocol script
 data_protocol/              background pool splits and compositor spec
 ```
@@ -50,5 +50,4 @@ python -m isi_wm.tools.evaluate_cutie_multitask_checkpoint \
 
 ## Data
 
-Background pool splits: `data_protocol/split_*.json` (train 80 clips /
-val 5 / support 5 / test 10). Compositor spec: `data_protocol/README.md`.
+Background pool splits: `data_protocol/split_*.json`. Compositor spec: `data_protocol/README.md`.

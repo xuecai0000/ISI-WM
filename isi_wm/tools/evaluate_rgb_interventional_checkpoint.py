@@ -331,7 +331,7 @@ def _load_agent(
 	checkpoint: Path, output: Path, training_condition: str = 'clean',
 ):
 	import torch
-	from isi_wm.tdmpc2 import TDMPC2
+	from isi_wm import TDMPC2
 	from isi_wm.tools import evaluate_cutie_multitask_checkpoint as base
 
 	_require(torch.cuda.is_available(), 'Checkpoint mechanism evaluation requires CUDA.')
