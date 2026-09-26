@@ -1,0 +1,53 @@
+{
+  "descriptor": {
+    "appearance_dim": 512,
+    "appearance_policy": "shared_within_tracking_entity_v1",
+    "format": "shared_entity_appearance_role_mask_geometry_status_590_v1",
+    "frame_dim": 590,
+    "geometry_dim": 74,
+    "geometry_policy": "role_mask_8x8_and_moments_v1",
+    "stack_frames": 3,
+    "status_dim": 4,
+    "status_policy": "entity_times_projector_reliability_v1"
+  },
+  "format": "support_conditioned_object_graph_v1",
+  "graph_name": "reacher_visual_small_direct_entities_v1",
+  "relations": [
+    {
+      "child": "goal",
+      "parent": "whole_arm",
+      "type": "spatial_target_v1"
+    }
+  ],
+  "semantic_roles": [
+    "whole_arm",
+    "goal"
+  ],
+  "source_roles": [
+    "whole_arm",
+    "goal"
+  ],
+  "task": "reacher-visual-small",
+  "tracking_entities": [
+    {
+      "name": "whole_arm",
+      "projector": {
+        "role": "whole_arm",
+        "type": "direct_role_v1"
+      },
+      "source_roles": [
+        "whole_arm"
+      ]
+    },
+    {
+      "name": "goal",
+      "projector": {
+        "role": "goal",
+        "type": "direct_role_v1"
+      },
+      "source_roles": [
+        "goal"
+      ]
+    }
+  ]
+}

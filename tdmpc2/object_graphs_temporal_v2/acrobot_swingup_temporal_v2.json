@@ -1,0 +1,55 @@
+{
+  "descriptor": {
+    "appearance_dim": 512,
+    "appearance_policy": "shared_within_tracking_entity_v1",
+    "format": "shared_entity_appearance_role_mask_geometry_status_590_v1",
+    "frame_dim": 590,
+    "geometry_dim": 74,
+    "geometry_policy": "role_mask_8x8_and_moments_v1",
+    "stack_frames": 3,
+    "status_dim": 4,
+    "status_policy": "entity_times_projector_reliability_v1"
+  },
+  "format": "support_conditioned_object_graph_v1",
+  "graph_name": "acrobot_swingup_whole_entity_ordered_chain_temporal_v2",
+  "relations": [
+    {
+      "child": "lower_arm",
+      "parent": "upper_arm",
+      "type": "revolute_joint_v1"
+    }
+  ],
+  "semantic_roles": [
+    "upper_arm",
+    "lower_arm"
+  ],
+  "source_roles": [
+    "upper_arm",
+    "lower_arm"
+  ],
+  "task": "acrobot-swingup",
+  "tracking_entities": [
+    {
+      "name": "whole_acrobot",
+      "projector": {
+        "maximum_base_distance_fraction": 0.35,
+        "maximum_branch_fraction": 0.35,
+        "maximum_disconnected_fraction": 0.2,
+        "maximum_entity_area_multiple": 2.5,
+        "maximum_path_length_fraction": 1.5,
+        "minimum_entity_pixels": 12,
+        "minimum_path_length_fraction": 0.55,
+        "minimum_projection_confidence": 0.2,
+        "ordered_roles": [
+          "upper_arm",
+          "lower_arm"
+        ],
+        "type": "ordered_chain_temporal_v2"
+      },
+      "source_roles": [
+        "upper_arm",
+        "lower_arm"
+      ]
+    }
+  ]
+}

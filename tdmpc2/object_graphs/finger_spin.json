@@ -1,0 +1,53 @@
+{
+  "descriptor": {
+    "appearance_dim": 512,
+    "appearance_policy": "shared_within_tracking_entity_v1",
+    "format": "shared_entity_appearance_role_mask_geometry_status_590_v1",
+    "frame_dim": 590,
+    "geometry_dim": 74,
+    "geometry_policy": "role_mask_8x8_and_moments_v1",
+    "stack_frames": 3,
+    "status_dim": 4,
+    "status_policy": "entity_times_projector_reliability_v1"
+  },
+  "format": "support_conditioned_object_graph_v1",
+  "graph_name": "finger_spin_direct_entities_v1",
+  "relations": [
+    {
+      "child": "spinner",
+      "parent": "finger",
+      "type": "spatial_target_v1"
+    }
+  ],
+  "semantic_roles": [
+    "finger",
+    "spinner"
+  ],
+  "source_roles": [
+    "finger",
+    "spinner"
+  ],
+  "task": "finger-spin",
+  "tracking_entities": [
+    {
+      "name": "finger",
+      "projector": {
+        "role": "finger",
+        "type": "direct_role_v1"
+      },
+      "source_roles": [
+        "finger"
+      ]
+    },
+    {
+      "name": "spinner",
+      "projector": {
+        "role": "spinner",
+        "type": "direct_role_v1"
+      },
+      "source_roles": [
+        "spinner"
+      ]
+    }
+  ]
+}

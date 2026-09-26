@@ -4,38 +4,51 @@ Code for ISI-WM.
 
 ## Setup
 
-Python 3.11, PyTorch 2.x (CUDA), dm-control 1.0.16, mujoco 3.1.2,
-imageio, imageio-ffmpeg.
-
 ```bash
-pip install torch dm-control==1.0.16 mujoco==3.1.2 imageio imageio-ffmpeg
+pip install -r requirements.txt
 ```
+
+Python 3.11, CUDA-enabled GPU.
 
 ## Layout
 
 ```
-configs/          configuration files
-tools/            evaluation script
-envs/wrappers/    video-background compositor
-data_protocol/    background data split and pairing notes
+tdmpc2/                    training and evaluation code
+  common/                    interventional objective definitions
+  trainer/                   training loop
+  envs/                      environment wrappers (video background compositor)
+  tools/                     evaluation and data construction scripts
+  tdmpc2.py                  agent (encoder, latent dynamics, MPC planner)
+  config.yaml                base configuration
+configs/                    intervention hyperparameters (all tasks shared)
+tools/                      standalone evaluation protocol script
+data_protocol/              background pool splits and compositor spec
 ```
+
+## Training
+
+```bash
+cd tdmpc2
+python train.py task=cup-catch obs=rgb steps=300000 \
+    video_background_enabled=true video_background_split=train seed=6
+```
+
+Tasks: `acrobot-swingup`, `cartpole-swingup`, `cup-catch`, `finger-spin`,
+`reacher-easy`, `walker-walk`. Seeds 6, 7, 8.
 
 ## Evaluation
 
 ```bash
-python -m tools.evaluate_cutie_multitask_checkpoint \
-    --task cup-catch --backend rgb \
-    --condition hard --background-split test \
+python -m tdmpc2.tools.evaluate_cutie_multitask_checkpoint \
+    --task cup-catch --backend rgb --condition hard --background-split test \
     --training-condition hard \
-    --runtime-config <run_dir>/runtime_config.json \
-    --checkpoint <run_dir>/models/final.pt \
+    --runtime-config <run>/runtime_config.json \
+    --checkpoint <run>/models/final.pt \
     --training-seed 6 --env-seed 424243 --background-seed 1618034 \
     --episodes 20 --output out.json
 ```
 
-Conditions: `--condition clean`, `--condition hard --background-split train` (seen),
-`--condition hard --background-split test` (unseen).
-
 ## Data
 
-See `data_protocol/` for the video pool split and compositor specification.
+Background pool splits: `data_protocol/split_*.json` (train 80 clips /
+val 5 / support 5 / test 10). Compositor spec: `data_protocol/README.md`.

@@ -1,0 +1,53 @@
+{
+  "descriptor": {
+    "appearance_dim": 512,
+    "appearance_policy": "shared_within_tracking_entity_v1",
+    "format": "shared_entity_appearance_role_mask_geometry_status_590_v1",
+    "frame_dim": 590,
+    "geometry_dim": 74,
+    "geometry_policy": "role_mask_8x8_and_moments_v1",
+    "stack_frames": 3,
+    "status_dim": 4,
+    "status_policy": "entity_times_projector_reliability_v1"
+  },
+  "format": "support_conditioned_object_graph_v1",
+  "graph_name": "cup_catch_direct_entities_v1",
+  "relations": [
+    {
+      "child": "ball",
+      "parent": "cup",
+      "type": "spatial_target_v1"
+    }
+  ],
+  "semantic_roles": [
+    "cup",
+    "ball"
+  ],
+  "source_roles": [
+    "cup",
+    "ball"
+  ],
+  "task": "cup-catch",
+  "tracking_entities": [
+    {
+      "name": "cup",
+      "projector": {
+        "role": "cup",
+        "type": "direct_role_v1"
+      },
+      "source_roles": [
+        "cup"
+      ]
+    },
+    {
+      "name": "ball",
+      "projector": {
+        "role": "ball",
+        "type": "direct_role_v1"
+      },
+      "source_roles": [
+        "ball"
+      ]
+    }
+  ]
+}
