@@ -930,9 +930,9 @@ def collect(args) -> dict[str, Any]:
 	import torch
 	from common.seed import set_seed
 	from envs import make_env
-	from tdmpc2.tdmpc2 import TDMPC2
-	from tdmpc2.tools import evaluate_cutie_multitask_checkpoint as evaluator
-	from tdmpc2.tools.collect_cutie_multitask_support import (
+	from isi_wm.tdmpc2 import TDMPC2
+	from isi_wm.tools import evaluate_cutie_multitask_checkpoint as evaluator
+	from isi_wm.tools.collect_cutie_multitask_support import (
 		TASK_BY_NAME, _catalog, _selected_objects,
 	)
 

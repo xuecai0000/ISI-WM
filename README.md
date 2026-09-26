@@ -13,7 +13,7 @@ Python 3.11, CUDA-enabled GPU.
 ## Layout
 
 ```
-tdmpc2/                    training and evaluation code
+isi_wm/                    training and evaluation code
   common/                    interventional objective definitions
   trainer/                   training loop
   envs/                      environment wrappers (video background compositor)
@@ -28,7 +28,7 @@ data_protocol/              background pool splits and compositor spec
 ## Training
 
 ```bash
-cd tdmpc2
+cd isi_wm
 python train.py task=cup-catch obs=rgb steps=300000 \
     video_background_enabled=true video_background_split=train seed=6
 ```
@@ -39,7 +39,7 @@ Tasks: `acrobot-swingup`, `cartpole-swingup`, `cup-catch`, `finger-spin`,
 ## Evaluation
 
 ```bash
-python -m tdmpc2.tools.evaluate_cutie_multitask_checkpoint \
+python -m isi_wm.tools.evaluate_cutie_multitask_checkpoint \
     --task cup-catch --backend rgb --condition hard --background-split test \
     --training-condition hard \
     --runtime-config <run>/runtime_config.json \
